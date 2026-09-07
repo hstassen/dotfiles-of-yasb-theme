@@ -1,0 +1,99 @@
+# Alleen PUBLIEK IP - BAR RECHTS zoals origineel
+watch_stylesheet: true
+watch_config: true
+system_colors: true
+debug: false
+update_check: true
+bars:
+  primary-bar:
+    enabled: true
+    screens:
+    - '*'
+    class_name: yasb-bar
+    alignment:
+      position: top
+      align: center
+    animation:
+      enabled: false
+      duration: 300
+    blur_effect:
+      enabled: false
+      round_corners: true
+    window_flags:
+      always_on_top: false
+      windows_app_bar: true
+    dimensions:
+      width: 43%
+      height: 36
+    padding:
+      top: 6
+      left: 8
+      bottom: 0
+      right: 8
+    widgets:
+      left: []
+      center: ["ip_info", "disk"]
+      right: ["clock"]
+widgets:
+  ip_info:
+    type: "yasb.custom.CustomWidget"
+    options:
+      label: "\uf450 {data[countryCode]} \udb81\udd9f {data[query]} <span style='color: ffffff;'></span><span></span><span>•</span>"
+      label_alt: "\U0001F3E2 {data[countryCode]} {data[isp]} {data[city]} <span style='color: ffffff;'></span><span></span><span>•</span>"
+      class_name: "ip-info-widget"
+      tooltip: false
+      tooltip_label: "Publiek IP: {data[query]}\nStad: {data[city]}\nLand: {data[countryCode]}\nProvider: {data[isp]}"
+      exec_options:
+        run_cmd: "curl.exe http://ip-api.com/json/"
+        run_interval: 300000
+        return_format: "json"
+      callbacks:
+        on_left: "toggle_label"
+        on_middle: "do_nothing"
+        on_right: "do_nothing"
+  disk:
+    type: "yasb.disk.DiskWidget"
+    options:
+      volume_label: "C"
+      update_interval: 60
+      decimal_display: 1
+      label: "\uf0a0 Drives"
+      label_alt: "\uf0a0 C: {space[used][percent]}"
+      group_label:
+        volume_labels: ["C", "D", "E", "F", "G", "H", "I", "J", "K"]
+        show_label_name: true
+        blur: false
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "None"
+        alignment: "center"
+        direction: "down"
+        offset_top: 7
+        offset_left: 0
+      callbacks:
+        on_left: "toggle_group"
+        on_middle: do_nothing
+        on_right: do_nothing
+  clock:
+    type: yasb.clock.ClockWidget
+    options:
+      label: "\uf017 {%A, %d %B %Y - %H:%M }<span>{alarm}</span>"
+      label_alt: "\uf017 {%a, %d %b %H:%M}"
+      locale: "nl_NL"
+      timezones: []
+      tooltip: false
+      calendar:
+        alignment: "right"
+        offset_top: 7
+        offset_left: 0
+        blur: false
+        round_corners: true
+        direction: "down"
+        extended: false
+        show_years: true
+        show_holidays: true
+        show_week_numbers: false
+      callbacks:
+        on_left: toggle_calendar
+        on_middle: do_nothing
+        on_right: do_nothing
