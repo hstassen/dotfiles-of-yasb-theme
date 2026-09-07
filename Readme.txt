@@ -1,0 +1,1 @@
+The language is set to Dutch. If you remove "nl_NL" from Clock Locale, everything will become English. You can also change to your own language here. The IP address is retrieved free of charge. So, no blocking. If you have any ideas to improve everything, please let me know. I hope you enjoy it.
